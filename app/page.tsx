@@ -6,11 +6,13 @@ import {
   RevealArticle,
   RevealGroup,
 } from "./components/Motion";
+import { MobileFloatingActions } from "./components/MobileFloatingActions";
 import { MobilePhoneLink } from "./components/MobilePhoneLink";
 import { ScrollRail } from "./components/ScrollRail";
 
 const ASSESSMENT_URL =
   "https://child-developmental-assessment-form-sage.vercel.app/";
+const NAVER_PLACE_URL = "https://naver.me/FAPGEScz";
 const CENTER_PHONE = "053-742-8813";
 const CENTER_TEL_LINK = "tel:0537428813";
 const CENTER_ADDRESS = "대구 동구 화랑로 109(효목동 526-3) 박영호빌딩 2층";
@@ -371,7 +373,7 @@ function ProgramIcon({ name }: Readonly<{ name: ProgramIconName }>) {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#fbfaf7] text-[#122044]">
+    <main className="min-h-screen bg-[#fbfaf7] pb-56 text-[#122044] sm:pb-0">
       <header className="sticky top-0 z-30 border-b border-[#dde8ee] bg-white/92 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-3 sm:px-8">
           <a href="#top" className="shrink-0" aria-label="페이지 처음으로 이동">
@@ -410,13 +412,20 @@ export default function Home() {
             </PhoneLink>
             <AssessmentLink
               aria-label="초기 상담 평가지 작성 페이지로 이동"
-              className="rounded-full bg-[#173b75] px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-[#102f61]"
+              className="hidden rounded-full bg-[#173b75] px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-[#102f61] sm:inline-flex"
             >
               상담 신청
             </AssessmentLink>
           </div>
         </div>
       </header>
+
+      <MobileFloatingActions
+        assessmentUrl={ASSESSMENT_URL}
+        centerPhone={CENTER_PHONE}
+        centerTelLink={CENTER_TEL_LINK}
+        naverPlaceUrl={NAVER_PLACE_URL}
+      />
 
       <section id="top" className="mx-auto max-w-7xl scroll-mt-24 px-5 pb-16 pt-12 sm:px-8 lg:pb-24 lg:pt-16">
         <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr]">
@@ -434,7 +443,7 @@ export default function Home() {
               평가하고 아이에게 필요한 맞춤 치료교육을 통해 건강한 성장을
               함께 만들어갑니다.
             </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-9 hidden flex-col gap-3 sm:flex sm:flex-row">
               <AssessmentLink
                 aria-label="초기 상담 평가지 작성 페이지로 이동"
                 className="inline-flex h-13 items-center justify-center rounded-full bg-[#173b75] px-7 text-base font-extrabold text-white shadow-sm transition hover:bg-[#102f61]"
