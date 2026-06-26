@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="0 0 320 240" role="img" aria-labelledby="title">
+  <title>임시 선생님 프로필 이미지</title>
+  <rect width="320" height="240" rx="16" fill="#f7fbfa"/>
+  <circle cx="160" cy="111" r="72" fill="#e4f5f3"/>
+  <path d="M114 207c7-41 24-62 46-62s39 21 46 62" fill="#173b75"/>
+  <circle cx="160" cy="91" r="37" fill="#fff4df" stroke="#173b75" stroke-width="5"/>
+  <path d="M119 84c8-32 30-48 62-38 17 5 27 19 29 39-22-14-48-14-91-1Z" fill="#f2c85b" stroke="#173b75" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M144 95h.2M176 95h.2M145 112c10 8 21 8 31 0" fill="none" stroke="#173b75" stroke-width="5" stroke-linecap="round"/>
+  <path d="M221 44c0-16 14-28 34-28s34 12 34 28-14 28-34 28c-5 0-10-.8-14-2l-18 10 5-16c-5-5-7-12-7-20Z" fill="#fff" stroke="#173b75" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M243 45h.2M255 45h.2M267 45h.2" stroke="#0b817f" stroke-width="6" stroke-linecap="round"/>
+</svg>

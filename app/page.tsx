@@ -142,6 +142,57 @@ const teamCards = [
   },
 ];
 
+const therapistProfiles = [
+  {
+    name: "김00 선생님",
+    field: "언어치료",
+    intro: "천천히 말해도 괜찮도록 아이의 표현을 기다립니다.",
+    image: "/assets/therapists/teacher-01.svg",
+  },
+  {
+    name: "이00 선생님",
+    field: "감각통합치료",
+    intro: "몸이 편안해지는 경험을 통해 일상 적응을 돕습니다.",
+    image: "/assets/therapists/teacher-02.svg",
+  },
+  {
+    name: "박00 선생님",
+    field: "인지치료",
+    intro: "아이의 생각하는 힘을 작은 성공 경험으로 확장합니다.",
+    image: "/assets/therapists/teacher-03.svg",
+  },
+  {
+    name: "정00 선생님",
+    field: "놀이치료",
+    intro: "놀이 속에서 감정과 관계의 언어를 함께 찾아갑니다.",
+    image: "/assets/therapists/teacher-04.svg",
+  },
+  {
+    name: "최00 선생님",
+    field: "미술치료",
+    intro: "말로 다 하지 못한 마음도 색과 그림으로 표현하도록 돕습니다.",
+    image: "/assets/therapists/teacher-05.svg",
+  },
+  {
+    name: "한00 선생님",
+    field: "짝치료",
+    intro: "또래와 주고받는 경험이 편안해지도록 곁에서 안내합니다.",
+    image: "/assets/therapists/teacher-06.svg",
+  },
+  {
+    name: "오00 선생님",
+    field: "그룹치료",
+    intro: "함께 기다리고 표현하는 과정에서 사회성을 키웁니다.",
+    image: "/assets/therapists/teacher-07.svg",
+  },
+  {
+    name: "문00 선생님",
+    field: "ABA 치료",
+    intro: "아이의 행동을 세심하게 관찰하고 필요한 변화를 계획합니다.",
+    image: "/assets/therapists/teacher-08.svg",
+  },
+];
+
 function AssessmentLink({
   children,
   className,
@@ -508,6 +559,54 @@ export default function Home() {
                 </h3>
                 <p className="mt-4 text-base leading-7 text-[#56677a]">
                   {card.body}
+                </p>
+              </RevealArticle>
+            ))}
+          </RevealGroup>
+        </div>
+      </section>
+
+      <section className="border-y border-[#d8e6ed] bg-white">
+        <div className="mx-auto max-w-7xl px-5 py-18 sm:px-8 lg:py-24">
+          <Reveal className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-extrabold uppercase tracking-[0.18em] text-[#0b817f]">
+              Therapist
+            </p>
+            <h2 className="mt-3 text-3xl font-black text-[#10265a] sm:text-4xl">
+              미래아이 선생님을
+              <span className="block">소개합니다</span>
+            </h2>
+            <p className="mt-5 text-base leading-7 text-[#56677a]">
+              아이의 말, 감각, 생각, 놀이와 관계를 함께 살피는 선생님들입니다.
+            </p>
+          </Reveal>
+          <RevealGroup
+            className="-mx-5 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-5 [scrollbar-color:#bdd2df_transparent] [scrollbar-width:thin] sm:-mx-8 sm:px-8 lg:mx-0 lg:px-0"
+            delayChildren={0.08}
+          >
+            {therapistProfiles.map((therapist) => (
+              <RevealArticle
+                key={therapist.name}
+                className="flex w-[258px] shrink-0 snap-start flex-col rounded-[8px] border border-[#d8e6ed] bg-[#fbfaf7] p-4 shadow-sm sm:w-[292px]"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[8px] border border-[#d8e6ed] bg-white">
+                  <Image
+                    src={therapist.image}
+                    alt={`${therapist.name} 임시 프로필 이미지`}
+                    fill
+                    unoptimized
+                    sizes="292px"
+                    className="object-cover"
+                  />
+                </div>
+                <span className="mt-5 inline-flex w-fit rounded-full bg-[#e4f5f3] px-3 py-1 text-xs font-extrabold text-[#0b817f]">
+                  {therapist.field}
+                </span>
+                <h3 className="mt-3 text-xl font-black text-[#10265a]">
+                  {therapist.name}
+                </h3>
+                <p className="mt-3 text-base leading-7 text-[#56677a]">
+                  {therapist.intro}
                 </p>
               </RevealArticle>
             ))}
