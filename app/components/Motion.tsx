@@ -2,7 +2,7 @@
 
 import { LazyMotion, domAnimation, useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
-import type { ReactNode } from "react";
+import type { MouseEventHandler, ReactNode } from "react";
 
 const viewport = { once: true, amount: 0.18 } as const;
 
@@ -25,8 +25,10 @@ type MotionButtonLinkProps = Readonly<
     children: ReactNode;
     className?: string;
     href: string;
+    onClick?: MouseEventHandler<HTMLAnchorElement>;
     rel?: string;
     target?: string;
+    title?: string;
     "aria-label"?: string;
   }
 >;

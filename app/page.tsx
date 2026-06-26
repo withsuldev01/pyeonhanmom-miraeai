@@ -6,9 +6,14 @@ import {
   RevealArticle,
   RevealGroup,
 } from "./components/Motion";
+import { MobilePhoneLink } from "./components/MobilePhoneLink";
+import { ScrollRail } from "./components/ScrollRail";
 
 const ASSESSMENT_URL =
   "https://child-developmental-assessment-form-sage.vercel.app/";
+const CENTER_PHONE = "053-742-8813";
+const CENTER_TEL_LINK = "tel:0537428813";
+const CENTER_ADDRESS = "대구 동구 화랑로 109(효목동 526-3) 박영호빌딩 2층";
 
 const supportCards = [
   {
@@ -121,6 +126,30 @@ const reviews = [
     title: "막막했던 치료 방향이 잡혔어요.",
     body: "아이에게 필요한 목표를 함께 세울 수 있어 좋았습니다.",
   },
+  {
+    title: "또래와 어울리는 모습이 자연스러워졌어요.",
+    body: "작은 변화들을 함께 확인할 수 있어 감사했습니다.",
+  },
+  {
+    title: "치료 후 피드백이 자세해서 좋아요.",
+    body: "집에서 이어갈 방법까지 알려주셔서 도움이 됩니다.",
+  },
+  {
+    title: "아이의 작은 변화도 세심하게 봐주세요.",
+    body: "보호자 입장에서 편하게 상담할 수 있어 든든합니다.",
+  },
+  {
+    title: "집중하는 시간이 조금씩 늘고 있어요.",
+    body: "아이에게 맞는 방식으로 접근해주셔서 믿음이 갔습니다.",
+  },
+  {
+    title: "아이의 예민함을 이해하게 되었어요.",
+    body: "어려움을 설명해주셔서 가정에서도 더 잘 도와줄 수 있었습니다.",
+  },
+  {
+    title: "치료 계획이 체계적이라 만족합니다.",
+    body: "초진, 상담, 치료 진행까지 자연스럽게 연결되어 좋았습니다.",
+  },
 ];
 
 const teamCards = [
@@ -210,6 +239,27 @@ function AssessmentLink({
     >
       {children}
     </MotionButtonLink>
+  );
+}
+
+function PhoneLink({
+  children,
+  className,
+  "aria-label": ariaLabel,
+}: Readonly<{
+  children: ReactNode;
+  className: string;
+  "aria-label"?: string;
+}>) {
+  return (
+    <MobilePhoneLink
+      aria-label={ariaLabel}
+      className={className}
+      phone={CENTER_PHONE}
+      telLink={CENTER_TEL_LINK}
+    >
+      {children}
+    </MobilePhoneLink>
   );
 }
 
@@ -352,13 +402,12 @@ export default function Home() {
             </a>
           </nav>
           <div className="flex items-center gap-2">
-            <MotionButtonLink
-              href="#contact"
-              aria-label="전화번호 준비 중 안내 영역으로 이동"
+            <PhoneLink
+              aria-label={`${CENTER_PHONE} 전화상담 연결`}
               className="hidden rounded-full border border-[#bdd2df] px-4 py-2 text-sm font-bold text-[#173b75] transition hover:border-[#173b75] sm:inline-flex"
             >
-              문의 안내
-            </MotionButtonLink>
+              전화상담
+            </PhoneLink>
             <AssessmentLink
               aria-label="초기 상담 평가지 작성 페이지로 이동"
               className="rounded-full bg-[#173b75] px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-[#102f61]"
@@ -392,13 +441,12 @@ export default function Home() {
               >
                 상담 신청
               </AssessmentLink>
-              <MotionButtonLink
-                href="#contact"
-                aria-label="전화번호 준비 중 안내 영역으로 이동"
+              <PhoneLink
+                aria-label={`${CENTER_PHONE} 전화상담 연결`}
                 className="inline-flex h-13 items-center justify-center rounded-full border border-[#bdd2df] bg-white px-7 text-base font-extrabold text-[#173b75] transition hover:border-[#173b75]"
               >
-                문의 안내
-              </MotionButtonLink>
+                전화상담
+              </PhoneLink>
             </div>
           </Reveal>
 
@@ -537,7 +585,7 @@ export default function Home() {
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <Reveal>
             <p className="text-sm font-extrabold uppercase tracking-[0.18em] text-[#0b817f]">
-              Therapist
+              Team Approach
             </p>
             <h2 className="mt-3 text-3xl font-black text-[#10265a] sm:text-4xl">
               아이를 함께 바라보는 선생님들
@@ -570,7 +618,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 py-18 sm:px-8 lg:py-24">
           <Reveal className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-extrabold uppercase tracking-[0.18em] text-[#0b817f]">
-              Therapist
+              Teachers
             </p>
             <h2 className="mt-3 text-3xl font-black text-[#10265a] sm:text-4xl">
               미래아이 선생님을
@@ -580,37 +628,44 @@ export default function Home() {
               아이의 말, 감각, 생각, 놀이와 관계를 함께 살피는 선생님들입니다.
             </p>
           </Reveal>
-          <RevealGroup
-            className="-mx-5 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-5 [scrollbar-color:#bdd2df_transparent] [scrollbar-width:thin] sm:-mx-8 sm:px-8 lg:mx-0 lg:px-0"
-            delayChildren={0.08}
+          <Reveal
+            className="mt-10"
+            delay={0.08}
           >
-            {therapistProfiles.map((therapist) => (
-              <RevealArticle
-                key={therapist.name}
-                className="flex w-[258px] shrink-0 snap-start flex-col rounded-[8px] border border-[#d8e6ed] bg-[#fbfaf7] p-4 shadow-sm sm:w-[292px]"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden rounded-[8px] border border-[#d8e6ed] bg-white">
-                  <Image
-                    src={therapist.image}
-                    alt={`${therapist.name} 임시 프로필 이미지`}
-                    fill
-                    unoptimized
-                    sizes="292px"
-                    className="object-cover"
-                  />
-                </div>
-                <span className="mt-5 inline-flex w-fit rounded-full bg-[#e4f5f3] px-3 py-1 text-xs font-extrabold text-[#0b817f]">
-                  {therapist.field}
-                </span>
-                <h3 className="mt-3 text-xl font-black text-[#10265a]">
-                  {therapist.name}
-                </h3>
-                <p className="mt-3 text-base leading-7 text-[#56677a]">
-                  {therapist.intro}
-                </p>
-              </RevealArticle>
-            ))}
-          </RevealGroup>
+            <ScrollRail
+              aria-label="선생님 소개 목록"
+              className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-5 [scrollbar-color:#bdd2df_transparent] [scrollbar-width:thin] sm:-mx-8 sm:px-8 lg:mx-0 lg:px-0"
+              nextLabel="다음 선생님 보기"
+              previousLabel="이전 선생님 보기"
+            >
+              {therapistProfiles.map((therapist) => (
+                <article
+                  key={therapist.name}
+                  className="flex w-[258px] shrink-0 snap-start flex-col rounded-[8px] border border-[#d8e6ed] bg-[#fbfaf7] p-4 shadow-sm sm:w-[292px]"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-[8px] border border-[#d8e6ed] bg-white">
+                    <Image
+                      src={therapist.image}
+                      alt={`${therapist.name} 임시 프로필 이미지`}
+                      fill
+                      unoptimized
+                      sizes="292px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <span className="mt-5 inline-flex w-fit rounded-full bg-[#e4f5f3] px-3 py-1 text-xs font-extrabold text-[#0b817f]">
+                    {therapist.field}
+                  </span>
+                  <h3 className="mt-3 text-xl font-black text-[#10265a]">
+                    {therapist.name}
+                  </h3>
+                  <p className="mt-3 text-base leading-7 text-[#56677a]">
+                    {therapist.intro}
+                  </p>
+                </article>
+              ))}
+            </ScrollRail>
+          </Reveal>
         </div>
       </section>
 
@@ -624,21 +679,37 @@ export default function Home() {
               아이에게 필요한 치료 방향을 함께 찾아갑니다
             </h2>
           </Reveal>
-          <RevealGroup className="mt-12 grid gap-5 lg:grid-cols-4">
+          <RevealGroup className="relative mt-12 space-y-7 md:space-y-0">
+            <div
+              aria-hidden="true"
+              className="absolute bottom-0 left-6 top-0 w-px bg-[#bdd2df] md:left-1/2 md:-translate-x-1/2"
+            />
             {processSteps.map((step, index) => (
               <RevealArticle
                 key={step.title}
-                className="rounded-[8px] border border-[#d8e6ed] bg-[#fbfaf7] p-6"
+                className="relative grid pl-16 md:grid-cols-[1fr_72px_1fr] md:gap-5 md:py-4 md:pl-0"
               >
-                <span className="text-sm font-black text-[#d71f39]">
-                  STEP {index + 1}
-                </span>
-                <h3 className="mt-5 text-xl font-black text-[#10265a]">
-                  {step.title}
-                </h3>
-                <p className="mt-4 text-base leading-7 text-[#56677a]">
-                  {step.body}
-                </p>
+                <span
+                  aria-hidden="true"
+                  className="absolute left-6 top-8 z-10 h-4 w-4 -translate-x-1/2 rounded-full border-4 border-white bg-[#0b817f] shadow-sm md:left-1/2 md:top-1/2 md:-translate-y-1/2"
+                />
+                <div
+                  className={`rounded-[8px] border border-[#d8e6ed] bg-[#fbfaf7] p-6 shadow-sm ${
+                    index % 2 === 0
+                      ? "md:col-start-1 md:text-right"
+                      : "md:col-start-3"
+                  }`}
+                >
+                  <span className="text-5xl font-black leading-none text-[#8fa093] sm:text-6xl">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-4 text-xl font-black text-[#10265a]">
+                    {step.title}
+                  </h3>
+                  <p className="mt-4 text-base leading-7 text-[#56677a]">
+                    {step.body}
+                  </p>
+                </div>
               </RevealArticle>
             ))}
           </RevealGroup>
@@ -679,34 +750,55 @@ export default function Home() {
 
       <section id="reviews" className="scroll-mt-24 bg-[#fbf2eb]">
         <div className="mx-auto max-w-7xl px-5 py-18 sm:px-8 lg:py-24">
-          <Reveal className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <p className="text-sm font-extrabold uppercase tracking-[0.18em] text-[#0b817f]">
-                Review
-              </p>
-              <h2 className="mt-3 text-3xl font-black text-[#10265a] sm:text-4xl">
-                아이의 변화를 함께 확인한 보호자 이야기
-              </h2>
-            </div>
-            <p className="max-w-md text-base leading-7 text-[#56677a]">
-              보호자들이 자주 궁금해하는 변화와 상담 경험을 예시로 정리했습니다.
+          <Reveal className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-extrabold uppercase tracking-[0.18em] text-[#0b817f]">
+              Review
             </p>
+            <h2 className="mt-3 text-3xl font-black text-[#10265a] sm:text-4xl">
+              아이의 변화를
+              <span className="block">경험하고 있습니다</span>
+            </h2>
           </Reveal>
-          <RevealGroup className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {reviews.map((review) => (
-              <RevealArticle
-                key={review.title}
-                className="rounded-[8px] border border-[#ead8ce] bg-white p-6 shadow-sm"
-              >
-                <h3 className="text-lg font-black leading-7 text-[#10265a]">
-                  {review.title}
-                </h3>
-                <p className="mt-4 text-base leading-7 text-[#56677a]">
-                  {review.body}
-                </p>
-              </RevealArticle>
-            ))}
-          </RevealGroup>
+          <Reveal className="mt-12" delay={0.08}>
+            <ScrollRail
+              aria-label="보호자 후기 목록"
+              className="-mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-5 [scrollbar-color:#d9cfc7_transparent] [scrollbar-width:thin] sm:-mx-8 sm:px-8 lg:mx-0 lg:px-0"
+              controlsClassName="mt-8 flex justify-center gap-3"
+              controlsPosition="bottom"
+              fadeFromClassName="from-[#fbf2eb]"
+              fadeInsetClassName="bottom-5 top-0"
+              nextLabel="다음 후기 보기"
+              previousLabel="이전 후기 보기"
+            >
+              {reviews.map((review) => (
+                <article
+                  key={review.title}
+                  className="flex min-h-[320px] w-[300px] shrink-0 snap-start flex-col rounded-[8px] border border-[#ead8ce] bg-white p-7 shadow-sm sm:w-[420px] lg:w-[450px]"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="text-5xl font-black leading-none text-[#d8e4dc]"
+                  >
+                    “
+                  </span>
+                  <h3 className="mt-7 text-lg font-black leading-8 text-[#10265a]">
+                    {review.title}
+                  </h3>
+                  <p className="mt-5 text-base leading-7 text-[#56677a]">
+                    {review.body}
+                  </p>
+                  <div className="mt-auto border-t border-[#efe5de] pt-5">
+                    <div aria-label="별점 5점" className="text-[#f2a51f]">
+                      ★★★★★
+                    </div>
+                    <p className="mt-2 text-sm font-extrabold text-[#10265a]">
+                      보호자
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </ScrollRail>
+          </Reveal>
         </div>
       </section>
 
@@ -729,22 +821,73 @@ export default function Home() {
           >
             상담 신청하기
           </AssessmentLink>
-          <span className="inline-flex h-13 items-center justify-center rounded-full border border-[#bdd2df] bg-white px-8 text-base font-extrabold text-[#173b75]">
-            전화번호 준비 중
-          </span>
+          <PhoneLink
+            aria-label={`${CENTER_PHONE} 전화상담 연결`}
+            className="inline-flex h-13 items-center justify-center rounded-full border border-[#bdd2df] bg-white px-8 text-base font-extrabold text-[#173b75] transition hover:border-[#173b75]"
+          >
+            전화상담 {CENTER_PHONE}
+          </PhoneLink>
         </div>
         <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-[#56677a]">
-          전화번호 확정 전까지 상담 신청서를 남겨주시면 확인 후 상담 안내를
+          상담 신청서를 남겨주시거나 전화로 문의해주시면 확인 후 상담 안내를
           도와드립니다.
         </p>
       </section>
 
-      <footer className="border-t border-[#d8e6ed] bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm leading-6 text-[#56677a] sm:px-8 lg:flex-row lg:items-center lg:justify-between">
-          <p className="font-bold text-[#10265a]">
-            편한몸 의원 부설 미래아이 심리발달 클리닉
-          </p>
-          <p>주소, 운영 시간, 전화번호는 확정 후 반영 예정입니다.</p>
+      <footer className="bg-[#202521] text-[#d4dad4]">
+        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 lg:py-20">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:justify-between">
+            <div>
+              <p className="text-xl font-black text-white sm:text-2xl">
+                편한몸 의원 부설 미래아이 심리발달 클리닉
+              </p>
+              <p className="mt-6 max-w-2xl text-sm leading-7 text-[#b9c0ba] sm:text-base">
+                아이의 발달을 언어, 인지, 감각, 운동, 사회성의 흐름 안에서
+                함께 살피고, 보호자가 이해할 수 있는 상담과 치료교육 방향을
+                안내합니다.
+              </p>
+            </div>
+
+            <div className="lg:text-right">
+              <p className="text-sm font-extrabold uppercase tracking-[0.18em] text-[#8fd0c7]">
+                Information
+              </p>
+              <address className="mt-5 space-y-2 text-sm not-italic leading-7 text-[#c8cec8]">
+                <p>{CENTER_ADDRESS}</p>
+                <p>운영 시간은 상담 시 안내드립니다.</p>
+                <p>방문 전 예약 상담을 권장합니다.</p>
+              </address>
+              <MobilePhoneLink
+                className="mt-5 inline-flex text-2xl font-black text-white transition hover:text-[#8fd0c7]"
+                aria-label={`${CENTER_PHONE} 전화상담 연결`}
+                phone={CENTER_PHONE}
+                telLink={CENTER_TEL_LINK}
+              >
+                {CENTER_PHONE}
+              </MobilePhoneLink>
+            </div>
+          </div>
+
+          <div className="mt-12 flex flex-col gap-4 border-t border-white/12 pt-8 text-sm text-[#aeb6af] lg:flex-row lg:items-center lg:justify-between">
+            <p>
+              © 2026 편한몸 의원 부설 미래아이 심리발달 클리닉. All rights
+              reserved.
+            </p>
+            <div className="flex flex-wrap gap-x-6 gap-y-2 font-bold">
+              <a href="#programs" className="transition hover:text-white">
+                프로그램
+              </a>
+              <a href="#process" className="transition hover:text-white">
+                치료 과정
+              </a>
+              <a href="#reviews" className="transition hover:text-white">
+                후기
+              </a>
+              <a href="#contact" className="transition hover:text-white">
+                상담 문의
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
     </main>
