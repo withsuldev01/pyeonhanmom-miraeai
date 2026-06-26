@@ -25,36 +25,65 @@ const supportCards = [
   },
 ];
 
+const trustItems = [
+  "원장 초진",
+  "다영역 발달 평가",
+  "보호자 해석상담",
+  "1회 치료 경험",
+];
+
 const programs = [
   {
+    icon: "speech",
     title: "언어치료",
     body: "말을 이해하고 표현하는 힘을 키우며 자연스러운 소통을 도와줍니다.",
+    tags: ["표현", "이해", "소통"],
   },
   {
+    icon: "sensory",
     title: "감각통합치료",
     body: "감각 자극을 조절하고 몸을 안정적으로 사용할 수 있도록 돕습니다.",
+    tags: ["감각 조절", "몸 사용"],
   },
   {
+    icon: "cognition",
     title: "인지치료",
     body: "주의집중, 문제해결, 기억, 기초학습 능력을 단계적으로 확장합니다.",
+    tags: ["주의집중", "기초학습"],
   },
   {
+    icon: "play",
     title: "놀이치료",
     body: "놀이를 통해 감정 표현, 관계 맺기, 자기조절 능력을 자연스럽게 이끕니다.",
+    tags: ["정서 표현", "관계"],
   },
   {
+    icon: "art",
     title: "미술치료",
     body: "그림과 만들기 활동으로 감정을 표현하고 정서적 안정감을 기릅니다.",
+    tags: ["감정 표현", "안정감"],
   },
   {
+    icon: "pair",
     title: "짝치료",
     body: "또래와 차례 기다리기, 주고받기, 공동 활동을 경험합니다.",
+    tags: ["또래 상호작용", "차례 기다리기"],
   },
   {
+    icon: "group",
     title: "그룹치료",
     body: "규칙 이해, 협력, 표현 방법을 배우며 사회적 자신감을 높입니다.",
+    tags: ["협력", "사회성"],
   },
-];
+  {
+    icon: "aba",
+    title: "ABA 치료",
+    body: "아동의 행동을 체계적으로 관찰하고, 긍정적인 행동과 의사소통·사회성 발달을 단계적으로 돕는 치료 프로그램입니다.",
+    tags: ["행동 관찰", "의사소통", "사회성"],
+  },
+] as const;
+
+type ProgramIconName = (typeof programs)[number]["icon"];
 
 const processSteps = [
   {
@@ -116,14 +145,126 @@ const teamCards = [
 function AssessmentLink({
   children,
   className,
+  "aria-label": ariaLabel,
 }: Readonly<{
   children: ReactNode;
   className: string;
+  "aria-label"?: string;
 }>) {
   return (
-    <MotionButtonLink className={className} href={ASSESSMENT_URL}>
+    <MotionButtonLink
+      aria-label={ariaLabel}
+      className={className}
+      href={ASSESSMENT_URL}
+    >
       {children}
     </MotionButtonLink>
+  );
+}
+
+function ProgramIcon({ name }: Readonly<{ name: ProgramIconName }>) {
+  const common = {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: 3,
+  } as const;
+
+  return (
+    <div className="mb-5 flex h-18 w-18 items-center justify-center rounded-full bg-[#e4f5f3] ring-1 ring-[#c9e8e4]">
+      <svg
+        aria-hidden="true"
+        className="h-12 w-12"
+        viewBox="0 0 80 80"
+      >
+        {name === "speech" ? (
+          <>
+            <path
+              d="M18 33c0-11 10-19 23-19s23 8 23 19-10 19-23 19c-4 0-8-.7-11.3-2L19 56l3.3-10.4A17.4 17.4 0 0 1 18 33Z"
+              stroke="#173b75"
+              fill="#ffffff"
+              {...common}
+            />
+            <path d="M32 33h.2M41 33h.2M50 33h.2" stroke="#0b817f" {...common} />
+            <path d="M61 22c4 2.8 6.5 6.8 7 11.8M66 16c6.2 4.5 9.8 10.7 10.7 18" stroke="#42a88e" {...common} />
+          </>
+        ) : null}
+        {name === "sensory" ? (
+          <>
+            <path d="M36 18h10l5 9-7 7H31l-7-7 5-9h7Z" fill="#f2c85b" stroke="#173b75" {...common} />
+            <path d="M36 34 29 56M44 34l8 22M31 45h18" stroke="#173b75" {...common} />
+            <path d="M18 56h20M46 56h16" stroke="#0b817f" {...common} />
+            <path d="M18 42c4-5 8-5 12 0M50 18c5-4 10-3 13 2" stroke="#d85253" {...common} />
+            <circle cx="18" cy="42" r="4" fill="#77bfd3" stroke="#173b75" {...common} />
+            <circle cx="63" cy="20" r="4" fill="#77bfd3" stroke="#173b75" {...common} />
+          </>
+        ) : null}
+        {name === "cognition" ? (
+          <>
+            <path
+              d="M28 57c-9-4-14-12-14-22 0-12 9-21 21-21 4 0 8 1.2 11 3.3A18 18 0 0 1 68 35c0 10-7 19-17 22"
+              fill="#ffffff"
+              stroke="#173b75"
+              {...common}
+            />
+            <path d="M38 20v44M27 31h22M29 45h15M49 28h10M50 43h12" stroke="#0b817f" {...common} />
+            <path d="M36 20c-3 4-3 8 0 12M47 18c4 4 5 9 2 14M34 64c2-5 7-7 13-5" stroke="#d85253" {...common} />
+            <circle cx="58" cy="43" r="5" fill="#f2c85b" stroke="#173b75" {...common} />
+          </>
+        ) : null}
+        {name === "play" ? (
+          <>
+            <path d="M17 42h18v20H17z" fill="#77bfd3" stroke="#173b75" {...common} />
+            <path d="M35 30h18v32H35z" fill="#f2c85b" stroke="#173b75" {...common} />
+            <path d="M53 42h14v20H53z" fill="#d85253" stroke="#173b75" {...common} />
+            <path d="M37 30 44 18l9 12" fill="#ffffff" stroke="#173b75" {...common} />
+            <path d="M23 42v-9h9" stroke="#0b817f" {...common} />
+          </>
+        ) : null}
+        {name === "art" ? (
+          <>
+            <path
+              d="M16 40c0-13 11-24 25-24 13 0 23 8 23 19 0 5-3 8-8 8h-5c-4 0-6 3-5 7 1 6-3 12-10 12-11 0-20-10-20-22Z"
+              fill="#ffffff"
+              stroke="#173b75"
+              {...common}
+            />
+            <circle cx="31" cy="31" r="4" fill="#77bfd3" stroke="#173b75" {...common} />
+            <circle cx="43" cy="27" r="4" fill="#f2c85b" stroke="#173b75" {...common} />
+            <circle cx="52" cy="36" r="4" fill="#d85253" stroke="#173b75" {...common} />
+            <path d="M55 60 68 31M60 62l8-18" stroke="#0b817f" {...common} />
+          </>
+        ) : null}
+        {name === "pair" ? (
+          <>
+            <circle cx="29" cy="25" r="8" fill="#ffffff" stroke="#173b75" {...common} />
+            <circle cx="53" cy="25" r="8" fill="#ffffff" stroke="#173b75" {...common} />
+            <path d="M18 58c1-12 8-19 19-19M64 58c-1-12-8-19-19-19" stroke="#173b75" {...common} />
+            <path d="M35 45c5 6 9 6 14 0M22 22c2-6 8-9 14-6M46 16c6-3 13 0 16 6" stroke="#0b817f" {...common} />
+            <path d="M36 35h10M39 31l4 4-4 4" stroke="#d85253" {...common} />
+          </>
+        ) : null}
+        {name === "group" ? (
+          <>
+            <circle cx="40" cy="23" r="8" fill="#ffffff" stroke="#173b75" {...common} />
+            <circle cx="23" cy="35" r="7" fill="#ffffff" stroke="#173b75" {...common} />
+            <circle cx="57" cy="35" r="7" fill="#ffffff" stroke="#173b75" {...common} />
+            <path d="M27 63c1-13 6-21 13-21s12 8 13 21M10 62c1-10 6-16 13-16 4 0 7 1.6 10 4M70 62c-1-10-6-16-13-16-4 0-7 1.6-10 4" stroke="#173b75" {...common} />
+            <path d="M29 19c3-7 11-10 18-6M18 30c2-4 6-6 11-4M51 26c5-2 9 0 12 4" stroke="#0b817f" {...common} />
+            <path d="M35 53h10" stroke="#f2c85b" {...common} />
+          </>
+        ) : null}
+        {name === "aba" ? (
+          <>
+            <path d="M22 15h34l8 8v42H22z" fill="#ffffff" stroke="#173b75" {...common} />
+            <path d="M56 15v10h8" stroke="#173b75" {...common} />
+            <path d="M31 32h3l4 5 10-12M31 48h3l4 5 10-12" stroke="#0b817f" {...common} />
+            <path d="M51 34h5M51 50h5" stroke="#d85253" {...common} />
+            <circle cx="29" cy="32" r="3" fill="#f2c85b" />
+            <circle cx="29" cy="48" r="3" fill="#f2c85b" />
+          </>
+        ) : null}
+      </svg>
+    </div>
   );
 }
 
@@ -162,18 +303,22 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <MotionButtonLink
               href="#contact"
+              aria-label="전화번호 준비 중 안내 영역으로 이동"
               className="hidden rounded-full border border-[#bdd2df] px-4 py-2 text-sm font-bold text-[#173b75] transition hover:border-[#173b75] sm:inline-flex"
             >
-              전화상담
+              문의 안내
             </MotionButtonLink>
-            <AssessmentLink className="rounded-full bg-[#173b75] px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-[#102f61]">
+            <AssessmentLink
+              aria-label="초기 상담 평가지 작성 페이지로 이동"
+              className="rounded-full bg-[#173b75] px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-[#102f61]"
+            >
               상담 신청
             </AssessmentLink>
           </div>
         </div>
       </header>
 
-      <section id="top" className="mx-auto max-w-7xl px-5 pb-16 pt-12 sm:px-8 lg:pb-24 lg:pt-16">
+      <section id="top" className="mx-auto max-w-7xl scroll-mt-24 px-5 pb-16 pt-12 sm:px-8 lg:pb-24 lg:pt-16">
         <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr]">
           <Reveal>
             <p className="mb-5 inline-flex rounded-full bg-[#e4f5f3] px-4 py-2 text-sm font-bold text-[#0b817f]">
@@ -190,14 +335,18 @@ export default function Home() {
               함께 만들어갑니다.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <AssessmentLink className="inline-flex h-13 items-center justify-center rounded-full bg-[#173b75] px-7 text-base font-extrabold text-white shadow-sm transition hover:bg-[#102f61]">
+              <AssessmentLink
+                aria-label="초기 상담 평가지 작성 페이지로 이동"
+                className="inline-flex h-13 items-center justify-center rounded-full bg-[#173b75] px-7 text-base font-extrabold text-white shadow-sm transition hover:bg-[#102f61]"
+              >
                 상담 신청
               </AssessmentLink>
               <MotionButtonLink
                 href="#contact"
+                aria-label="전화번호 준비 중 안내 영역으로 이동"
                 className="inline-flex h-13 items-center justify-center rounded-full border border-[#bdd2df] bg-white px-7 text-base font-extrabold text-[#173b75] transition hover:border-[#173b75]"
               >
-                전화상담
+                문의 안내
               </MotionButtonLink>
             </div>
           </Reveal>
@@ -205,7 +354,7 @@ export default function Home() {
           <Reveal className="relative" delay={0.08} distance={16} scale={0.98}>
             <div className="relative min-h-[360px] overflow-hidden rounded-[8px] border border-[#dde8ee] bg-white shadow-[0_18px_50px_rgba(18,32,68,0.12)] sm:min-h-[460px] lg:min-h-[560px]">
               <Image
-                src="/assets/center-lobby.jpeg"
+                src="/assets/center-lobby2.jpeg"
                 alt="미래아이 심리발달 클리닉 로비"
                 fill
                 priority
@@ -226,23 +375,38 @@ export default function Home() {
       </section>
 
       <section className="border-y border-[#d8e6ed] bg-white">
-        <Reveal className="mx-auto grid max-w-7xl gap-6 px-5 py-10 sm:px-8 lg:grid-cols-[1fr_auto] lg:items-center">
-          <div>
-            <p className="text-sm font-extrabold uppercase tracking-[0.18em] text-[#0b817f]">
-              Initial Assessment
-            </p>
-            <h2 className="mt-3 text-2xl font-black text-[#10265a] sm:text-3xl">
-              상담 전, 간단한 문진으로 아이의 상태를 먼저 알려주세요
-            </h2>
-            <p className="mt-4 max-w-3xl text-base leading-7 text-[#56677a]">
-              약 5분 정도 소요되는 아동 발달 초기 상담 평가지입니다.
-              작성 내용은 상담 목적에만 사용되며, 제출 후 상담과 평가 방향을
-              잡는 참고 자료로 활용됩니다.
-            </p>
+        <Reveal className="mx-auto max-w-7xl px-5 py-10 sm:px-8">
+          <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <p className="text-sm font-extrabold uppercase tracking-[0.18em] text-[#0b817f]">
+                Initial Assessment
+              </p>
+              <h2 className="mt-3 text-2xl font-black text-[#10265a] sm:text-3xl">
+                상담 전, 간단한 문진으로 아이의 상태를 먼저 알려주세요
+              </h2>
+              <p className="mt-4 max-w-3xl text-base leading-7 text-[#56677a]">
+                약 5분 정도 소요되는 아동 발달 초기 상담 평가지입니다.
+                작성 내용은 상담 목적에만 사용되며, 제출 후 상담과 평가 방향을
+                잡는 참고 자료로 활용됩니다.
+              </p>
+            </div>
+            <AssessmentLink
+              aria-label="초기 상담 평가지 작성 페이지로 이동"
+              className="inline-flex h-13 items-center justify-center rounded-full bg-[#f2a51f] px-7 text-base font-extrabold text-[#122044] transition hover:bg-[#e19616]"
+            >
+              초기 상담 평가지 작성하기
+            </AssessmentLink>
           </div>
-          <AssessmentLink className="inline-flex h-13 items-center justify-center rounded-full bg-[#f2a51f] px-7 text-base font-extrabold text-[#122044] transition hover:bg-[#e19616]">
-            초기 상담 평가지 작성하기
-          </AssessmentLink>
+          <div className="mt-8 grid gap-3 border-t border-[#d8e6ed] pt-6 sm:grid-cols-2 lg:grid-cols-4">
+            {trustItems.map((item) => (
+              <div
+                key={item}
+                className="rounded-[8px] border border-[#d8e6ed] bg-[#fbfaf7] px-4 py-3 text-sm font-extrabold text-[#173b75]"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
         </Reveal>
       </section>
 
@@ -275,7 +439,7 @@ export default function Home() {
         </RevealGroup>
       </section>
 
-      <section id="programs" className="bg-[#eff8f7]">
+      <section id="programs" className="scroll-mt-24 bg-[#eff8f7]">
         <div className="mx-auto max-w-7xl px-5 py-18 sm:px-8 lg:py-24">
           <Reveal className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-extrabold uppercase tracking-[0.18em] text-[#0b817f]">
@@ -293,14 +457,25 @@ export default function Home() {
             {programs.map((program) => (
               <RevealArticle
                 key={program.title}
-                className="flex min-h-[190px] flex-col rounded-[8px] border border-[#d8e6ed] bg-white p-6 shadow-sm"
+                className="flex min-h-[300px] flex-col rounded-[8px] border border-[#d8e6ed] bg-white p-6 shadow-sm"
               >
+                <ProgramIcon name={program.icon} />
                 <h3 className="text-xl font-black text-[#10265a]">
                   {program.title}
                 </h3>
                 <p className="mt-4 text-base leading-7 text-[#56677a]">
                   {program.body}
                 </p>
+                <div className="mt-auto flex flex-wrap gap-2 pt-5">
+                  {program.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full bg-[#e4f5f3] px-3 py-1 text-xs font-extrabold text-[#0b817f]"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </RevealArticle>
             ))}
           </RevealGroup>
@@ -318,8 +493,8 @@ export default function Home() {
             </h2>
             <p className="mt-5 text-base leading-7 text-[#56677a]">
               원장님과 분야별 치료사가 함께 아이의 말, 감각, 생각, 놀이와
-              관계를 살핍니다. 실제 치료사 정보가 확정되면 이 영역은 프로필
-              카드로 확장할 수 있습니다.
+              관계를 살핍니다. 원장 초진과 분야별 치료팀이 아이의 발달 흐름을
+              함께 살피고, 평가 결과에 맞춰 필요한 치료교육 방향을 안내합니다.
             </p>
           </Reveal>
           <RevealGroup className="grid gap-4 sm:grid-cols-2" delayChildren={0.08}>
@@ -340,7 +515,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="process" className="bg-white">
+      <section id="process" className="scroll-mt-24 bg-white">
         <div className="mx-auto max-w-7xl px-5 py-18 sm:px-8 lg:py-24">
           <Reveal className="max-w-3xl">
             <p className="text-sm font-extrabold uppercase tracking-[0.18em] text-[#0b817f]">
@@ -390,14 +565,20 @@ export default function Home() {
             <p className="mt-2 text-3xl font-black text-[#f2c85b]">
               총 60,000원
             </p>
+            <p className="mt-3 text-sm font-bold leading-6 text-[#dbe7f2]">
+              구성과 금액은 상담 시 최종 안내됩니다.
+            </p>
           </div>
-          <AssessmentLink className="mt-8 inline-flex h-13 items-center justify-center rounded-full bg-white px-7 text-base font-extrabold text-[#173b75] transition hover:bg-[#f4f7fb] lg:mt-0">
+          <AssessmentLink
+            aria-label="초기 상담 평가지 작성 페이지로 이동"
+            className="mt-8 inline-flex h-13 items-center justify-center rounded-full bg-white px-7 text-base font-extrabold text-[#173b75] transition hover:bg-[#f4f7fb] lg:mt-0"
+          >
             상담 신청
           </AssessmentLink>
         </Reveal>
       </section>
 
-      <section id="reviews" className="bg-[#fbf2eb]">
+      <section id="reviews" className="scroll-mt-24 bg-[#fbf2eb]">
         <div className="mx-auto max-w-7xl px-5 py-18 sm:px-8 lg:py-24">
           <Reveal className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
@@ -409,8 +590,7 @@ export default function Home() {
               </h2>
             </div>
             <p className="max-w-md text-base leading-7 text-[#56677a]">
-              실제 후기 사용 여부가 확정되기 전까지는 대표 예시 문구로
-              구성합니다.
+              보호자들이 자주 궁금해하는 변화와 상담 경험을 예시로 정리했습니다.
             </p>
           </Reveal>
           <RevealGroup className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -431,7 +611,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="mx-auto max-w-5xl px-5 py-18 text-center sm:px-8 lg:py-24">
+      <section id="contact" className="mx-auto max-w-5xl scroll-mt-24 px-5 py-18 text-center sm:px-8 lg:py-24">
         <p className="text-sm font-extrabold uppercase tracking-[0.18em] text-[#0b817f]">
           Contact
         </p>
@@ -444,13 +624,20 @@ export default function Home() {
           다정하게 헤아립니다.
         </p>
         <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-          <AssessmentLink className="inline-flex h-13 items-center justify-center rounded-full bg-[#173b75] px-8 text-base font-extrabold text-white shadow-sm transition hover:bg-[#102f61]">
+          <AssessmentLink
+            aria-label="초기 상담 평가지 작성 페이지로 이동"
+            className="inline-flex h-13 items-center justify-center rounded-full bg-[#173b75] px-8 text-base font-extrabold text-white shadow-sm transition hover:bg-[#102f61]"
+          >
             상담 신청하기
           </AssessmentLink>
           <span className="inline-flex h-13 items-center justify-center rounded-full border border-[#bdd2df] bg-white px-8 text-base font-extrabold text-[#173b75]">
             전화번호 준비 중
           </span>
         </div>
+        <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-[#56677a]">
+          전화번호 확정 전까지 상담 신청서를 남겨주시면 확인 후 상담 안내를
+          도와드립니다.
+        </p>
       </section>
 
       <footer className="border-t border-[#d8e6ed] bg-white">

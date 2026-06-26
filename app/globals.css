@@ -27,3 +27,9 @@ button,
 a {
   -webkit-tap-highlight-color: transparent;
 }
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #f2c85b;
+  outline-offset: 4px;
+}
